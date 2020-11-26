@@ -1,0 +1,47 @@
+// vue component 
+
+<template>
+<form>
+    <input v-model="clientID" type="text" placeholder="client ID">
+    <br>
+    <input v-model="name" type="text" placeholder="Client name">
+</form>
+</template>
+<script>
+export default {
+    computed: {
+        clientID: {
+            get() {
+                return this.$store.state.formData.clientID
+            },
+            set(value) {
+                this.$store.commit('setFormData', { field: 'clientID', value: value })
+            }
+        },
+        name: {
+            get() {
+                return this.$store.state.formData.name
+            },
+            set(value) {
+                this.$store.commit('setFormData', { field: 'name', value: value })
+            }
+        }
+    }
+}
+</script>
+
+
+// Store
+export const state = () => ({
+    formData: {
+        clientID: '',
+        name: '',
+    }
+})
+
+export const mutations = {
+    setFormData(state, val) {
+        state.formData[val.field] = val.value
+    },
+}
+
